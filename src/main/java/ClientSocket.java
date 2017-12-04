@@ -17,6 +17,7 @@ public class ClientSocket {
     private String remoteAddr = "";
     private int port;
 
+    private Socket socket;
     private BufferedInputStream in;
     private OutputStream out;
 
@@ -55,9 +56,23 @@ public class ClientSocket {
     public void connect() throws IOException {
 
         // creating a socket to connect to the server
-        Socket socket = new Socket(remoteAddr, port);
+        socket = new Socket(remoteAddr, port);
         in = new BufferedInputStream(socket.getInputStream());
         out = socket.getOutputStream();
+    }
+
+    /**
+     * Closes the input & output streams, then closes
+     * the socket.
+     *
+     * @throws IOException if an I/O error occurs when
+     *                     closing the input/output stream
+     *                     or the socket.
+     */
+    public void disconnect() throws IOException {
+        in.close();
+        out.close();
+        socket.close();
     }
 
     /**
@@ -93,4 +108,6 @@ public class ClientSocket {
         // returns message string without the delimiter
         return msg.substring(0, msg.lastIndexOf(delimiter));
     }
+
+
 }
