@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class SocketConnection {
+public class ClientSocket {
 
     private String remoteAddr = "";
     private int port;
@@ -20,19 +20,19 @@ public class SocketConnection {
     private OutputStream out;
 
     /**
-     * Initialises an instance of {@link SocketConnection}
+     * Initialises an instance of {@link ClientSocket}
      * and define the values of remote socket server
      * address & port number. Then returns the instance
      * initialised.
      *
      * @param remoteAddr IPv4 address of the remote socket
-     *                   server
+     *                   server.
      * @param port       port number of the remote socket
-     *                   server
-     * @return instance of {@link SocketConnection}
+     *                   server.
+     * @return instance of {@link ClientSocket}.
      */
-    public static SocketConnection init(String remoteAddr, int port) {
-        SocketConnection instance = new SocketConnection();
+    public static ClientSocket init(String remoteAddr, int port) {
+        ClientSocket instance = new ClientSocket();
 
         instance.remoteAddr = remoteAddr;
         instance.port = port;
@@ -44,7 +44,7 @@ public class SocketConnection {
      * Connects to remote socket server & opens the
      * input & output streams.
      *
-     * @throws IOException when connection fails
+     * @throws IOException when connection fails.
      */
     public void connect() throws IOException {
 
