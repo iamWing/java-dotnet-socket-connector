@@ -54,4 +54,35 @@ public class ClientSocket {
         out = socket.getOutputStream();
     }
 
+    /**
+     * Reads bytes from input stream.
+     * <p>
+     * A custom string delimiter is needed to determine
+     * when does it complete receiving the whole message.
+     * The method then returns the message without the
+     * delimiter once the whole message was received.
+     *
+     * @param bufferSize size of the byte array buffer.
+     * @param delimiter  a specific string that defines
+     *                   the end of the message received.
+     * @return the string message without the delimiter.
+     * @throws IOException if the input stream has been
+     *                     closed by invoking its close()
+     *                     method, or an I/O error occurs.
+     */
+    public String readString(final int bufferSize,
+                             final String delimiter)
+            throws IOException {
+        StringBuilder msg = new StringBuilder();
+        byte[] buffer = new byte[bufferSize];
+
+        while (msg.lastIndexOf(delimiter) == -1) {
+            int bytesRead = in.read(buffer);
+
+            msg.append(new String(buffer, 0, bytesRead));
+        }
+
+        // returns message string without the delimiter
+        return msg.substring(0, msg.lastIndexOf(delimiter));
+    }
 }
