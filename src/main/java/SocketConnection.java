@@ -6,8 +6,8 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
@@ -16,8 +16,8 @@ public class SocketConnection {
     private String remoteAddr = "";
     private int port;
 
-    private InputStream is;
-    private OutputStream os;
+    private BufferedInputStream in;
+    private OutputStream out;
 
     /**
      * Initialises an instance of {@link SocketConnection}
@@ -50,8 +50,8 @@ public class SocketConnection {
 
         // creating a socket to connect to the server
         Socket socket = new Socket(remoteAddr, port);
-        is = socket.getInputStream();
-        os = socket.getOutputStream();
+        in = new BufferedInputStream(socket.getInputStream());
+        out = socket.getOutputStream();
     }
 
 }
