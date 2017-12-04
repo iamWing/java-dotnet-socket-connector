@@ -10,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ClientSocket {
 
@@ -44,7 +45,12 @@ public class ClientSocket {
      * Connects to remote socket server & opens the
      * input & output streams.
      *
-     * @throws IOException when connection fails.
+     * @throws UnknownHostException if the IP address of
+     *                              the host could not be
+     *                              determined.
+     * @throws IOException          if an I/O error occurs
+     *                              when creating the
+     *                              socket.
      */
     public void connect() throws IOException {
 
@@ -76,6 +82,8 @@ public class ClientSocket {
         StringBuilder msg = new StringBuilder();
         byte[] buffer = new byte[bufferSize];
 
+        // while the delimiter does exist in
+        // the received message
         while (msg.lastIndexOf(delimiter) == -1) {
             int bytesRead = in.read(buffer);
 
