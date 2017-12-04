@@ -6,10 +6,18 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+
 public class SocketConnection {
 
     private String remoteAddr = "";
     private int port;
+
+    private InputStream is;
+    private OutputStream os;
 
     /**
      * Initialises an instance of {@link SocketConnection}
@@ -30,6 +38,20 @@ public class SocketConnection {
         instance.port = port;
 
         return instance;
+    }
+
+    /**
+     * Connects to remote socket server & opens the
+     * input & output streams.
+     *
+     * @throws IOException when connection fails
+     */
+    public void connect() throws IOException {
+
+        // creating a socket to connect to the server
+        Socket socket = new Socket(remoteAddr, port);
+        is = socket.getInputStream();
+        os = socket.getOutputStream();
     }
 
 }
