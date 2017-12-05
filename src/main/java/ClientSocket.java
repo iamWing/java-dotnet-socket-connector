@@ -17,6 +17,19 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
+/**
+ * This class provides the APIs to connect to a
+ * socket server hosting by a .Net program.
+ * <p>
+ * Applications that need to create a connection
+ * to a .Net socket server must initial an
+ * instance of this class by calling
+ * {@link #init(String, int)}, then open the
+ * connection by calling {@link #connect()}.
+ * {@link #disconnect()} should always be called
+ * to close the input/output streams & the socket
+ * to release system resources associated.
+ */
 public class ClientSocket {
 
     private String remoteAddr = "";
@@ -50,6 +63,9 @@ public class ClientSocket {
     /**
      * Connects to remote socket server & opens the
      * input & output streams.
+     * <p>
+     * {@link #disconnect()} should be called when
+     * there is no use of the connection anymore.
      *
      * @throws UnknownHostException if the IP address of
      *                              the host could not be
@@ -68,7 +84,8 @@ public class ClientSocket {
 
     /**
      * Closes the input & output streams, then closes
-     * the socket.
+     * the socket to release any system resources
+     * associated.
      *
      * @throws IOException if an I/O error occurs when
      *                     closing the input/output stream
@@ -115,11 +132,13 @@ public class ClientSocket {
     }
 
     /**
-     * Writes string to the socket server. The encoding
-     * used here must match the encoding used in the
-     * .Net socket server to retrieve the string.
-     * Encoding from {@link StandardCharsets} is
-     * recommended. The default encoding is ASCII.
+     * Writes string to the socket server. The
+     * encoding codec used here must match the
+     * codec used in the .Net socket server to
+     * retrieve the string.
+     * <p>
+     * Codec from {@link StandardCharsets} is
+     * recommended. The default codec is ASCII.
      *
      * @param str   string that will be sent to
      *              the server.
