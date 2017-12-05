@@ -6,11 +6,16 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
+import com.sun.istack.internal.Nullable;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 public class ClientSocket {
 
@@ -109,5 +114,27 @@ public class ClientSocket {
         return msg.substring(0, msg.lastIndexOf(delimiter));
     }
 
+    /**
+     * Writes string to the socket server. The encoding
+     * used here must match the encoding used in the
+     * .Net socket server to retrieve the string.
+     * Encoding from {@link StandardCharsets} is
+     * recommended. The default encoding is ASCII.
+     *
+     * @param str   string that will be sent to
+     *              the server.
+     * @param codec encoding that will be used to
+     *              convert the string to byte
+     *              array. if null, ASCII codec
+     * @throws IOException if an I/O error occurs.
+     */
+    public void writeString(final String str, @Nullable final Charset codec)
+            throws IOException {
+        Charset encoding = Optional.of(codec)
+                .orElse(StandardCharsets.US_ASCII);
+
+        byte[] toSend = str.getBytes(encoding);
+        out.write(toSend);
+    }
 
 }
