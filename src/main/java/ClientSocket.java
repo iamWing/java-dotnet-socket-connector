@@ -61,6 +61,16 @@ public class ClientSocket {
     }
 
     /**
+     * Returns the connection status of the socket.
+     *
+     * @return true if socket is connected to the
+     * server, false if it is not.
+     */
+    public boolean isConnected() {
+        return socket.isConnected();
+    }
+
+    /**
      * Connects to remote socket server & opens the
      * input & output streams.
      * <p>
