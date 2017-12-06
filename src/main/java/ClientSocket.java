@@ -118,7 +118,8 @@ public class ClientSocket {
      * <p>
      * A custom string delimiter is needed to determine
      * when does it complete receiving the whole message.
-     * The method then returns the message without the
+     * The method then passes the message to the
+     * {@link OnReadStringCompleteListener} without the
      * delimiter once the whole message was received.
      *
      * @param bufferSize size of the byte array buffer.
@@ -129,8 +130,8 @@ public class ClientSocket {
      *                     closed by invoking its close()
      *                     method, or an I/O error occurs.
      */
-    public String readString(final int bufferSize,
-                             final String delimiter)
+    public void readString(final int bufferSize,
+                           final String delimiter)
             throws IOException {
         StringBuilder msg = new StringBuilder();
         byte[] buffer = new byte[bufferSize];
@@ -143,8 +144,10 @@ public class ClientSocket {
             msg.append(new String(buffer, 0, bytesRead));
         }
 
-        // returns message string without the delimiter
-        return msg.substring(0, msg.lastIndexOf(delimiter));
+        // passes message string to listener without
+        // the delimiter
+        onReadStringCompleteListener.onComplete(
+                msg.substring(0, msg.lastIndexOf(delimiter)));
     }
 
     /**
