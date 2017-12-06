@@ -6,7 +6,8 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
-import com.sun.istack.internal.Nullable;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
