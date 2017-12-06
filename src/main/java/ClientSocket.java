@@ -96,6 +96,10 @@ public class ClientSocket {
         socket = new Socket(remoteAddr, port);
         in = new BufferedInputStream(socket.getInputStream());
         out = socket.getOutputStream();
+
+        // notifies the listener that the connection
+        // has been established
+        onConnectionCreatedListener.onConnected();
     }
 
     /**
