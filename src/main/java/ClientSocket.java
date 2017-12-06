@@ -166,4 +166,20 @@ public class ClientSocket {
         out.write(toSend);
     }
 
+    /* Listener interfaces */
+
+    /**
+     * Interface definition for a callback to be
+     * invoked when the socket is connected to a
+     * socket server.
+     */
+    public interface OnConnectionCreatedListener {
+
+        /**
+         * On socket connected to server
+         * successfully.
+         */
+        void onConnected();
+    }
+
 }
