@@ -182,4 +182,19 @@ public class ClientSocket {
         void onConnected();
     }
 
+    /**
+     * Interface definition for a callback to be
+     * invoked when the whole string message is
+     * received when using
+     * {@link #readString(int, String)}.
+     */
+    public interface OnReadStringCompleteListener {
+
+        /**
+         * On completed receives message.
+         *
+         * @param received the received string.
+         */
+        void onComplete(String received);
+    }
 }
