@@ -39,6 +39,12 @@ public class ClientSocket {
     private BufferedInputStream in;
     private OutputStream out;
 
+    // listeners
+    private OnConnectionCreatedListener
+            onConnectionCreatedListener;
+    private OnReadStringCompleteListener
+            onReadStringCompleteListener;
+
     /**
      * Initialises an instance of {@link ClientSocket}
      * and define the values of remote socket server
@@ -90,6 +96,10 @@ public class ClientSocket {
         socket = new Socket(remoteAddr, port);
         in = new BufferedInputStream(socket.getInputStream());
         out = socket.getOutputStream();
+
+        // notifies the listener that the connection
+        // has been established
+        onConnectionCreatedListener.onConnected();
     }
 
     /**
@@ -112,7 +122,8 @@ public class ClientSocket {
      * <p>
      * A custom string delimiter is needed to determine
      * when does it complete receiving the whole message.
-     * The method then returns the message without the
+     * The method then passes the message to the
+     * {@link OnReadStringCompleteListener} without the
      * delimiter once the whole message was received.
      *
      * @param bufferSize size of the byte array buffer.
@@ -123,8 +134,8 @@ public class ClientSocket {
      *                     closed by invoking its close()
      *                     method, or an I/O error occurs.
      */
-    public String readString(final int bufferSize,
-                             final String delimiter)
+    public void readString(final int bufferSize,
+                           final String delimiter)
             throws IOException {
         StringBuilder msg = new StringBuilder();
         byte[] buffer = new byte[bufferSize];
@@ -137,8 +148,10 @@ public class ClientSocket {
             msg.append(new String(buffer, 0, bytesRead));
         }
 
-        // returns message string without the delimiter
-        return msg.substring(0, msg.lastIndexOf(delimiter));
+        // passes message string to listener without
+        // the delimiter
+        onReadStringCompleteListener.onComplete(
+                msg.substring(0, msg.lastIndexOf(delimiter)));
     }
 
     /**
@@ -166,4 +179,59 @@ public class ClientSocket {
         out.write(toSend);
     }
 
+    /* Listener setters */
+
+    /**
+     * Setter of {@link OnConnectionCreatedListener}.
+     *
+     * @param listener instance of
+     *                 {@link OnConnectionCreatedListener}.
+     */
+    public void setOnConnectionCreatedListener(
+            OnConnectionCreatedListener listener) {
+        onConnectionCreatedListener = listener;
+    }
+
+    /**
+     * Setter of {@link OnReadStringCompleteListener}.
+     *
+     * @param listener instance of
+     *                 {@link OnReadStringCompleteListener}.
+     */
+    public void setOnReadStringCompleteListener(
+            OnReadStringCompleteListener listener) {
+        onReadStringCompleteListener = listener;
+    }
+
+    /* Listener interfaces */
+
+    /**
+     * Interface definition for a callback to be
+     * invoked when the socket is connected to a
+     * socket server.
+     */
+    public interface OnConnectionCreatedListener {
+
+        /**
+         * On socket connected to server
+         * successfully.
+         */
+        void onConnected();
+    }
+
+    /**
+     * Interface definition for a callback to be
+     * invoked when the whole string message is
+     * received when using
+     * {@link #readString(int, String)}.
+     */
+    public interface OnReadStringCompleteListener {
+
+        /**
+         * On completed receives message.
+         *
+         * @param received the received string.
+         */
+        void onComplete(String received);
+    }
 }
