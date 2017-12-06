@@ -39,6 +39,12 @@ public class ClientSocket {
     private BufferedInputStream in;
     private OutputStream out;
 
+    // listeners
+    private OnConnectionCreatedListener
+            onConnectionCreatedListener;
+    private OnReadStringCompleteListener
+            onReadStringCompleteListener;
+
     /**
      * Initialises an instance of {@link ClientSocket}
      * and define the values of remote socket server
@@ -164,6 +170,30 @@ public class ClientSocket {
 
         byte[] toSend = str.getBytes(encoding);
         out.write(toSend);
+    }
+
+    /* Listener setters */
+
+    /**
+     * Setter of {@link OnConnectionCreatedListener}.
+     *
+     * @param listener instance of
+     *                 {@link OnConnectionCreatedListener}.
+     */
+    public void setOnConnectionCreatedListener(
+            OnConnectionCreatedListener listener) {
+        onConnectionCreatedListener = listener;
+    }
+
+    /**
+     * Setter of {@link OnReadStringCompleteListener}.
+     *
+     * @param listener instance of
+     *                 {@link OnReadStringCompleteListener}.
+     */
+    public void setOnReadStringCompleteListener(
+            OnReadStringCompleteListener listener) {
+        onReadStringCompleteListener = listener;
     }
 
     /* Listener interfaces */
