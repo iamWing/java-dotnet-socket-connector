@@ -174,7 +174,7 @@ public class ClientSocket {
      */
     public void writeString(final String str, @Nullable final Charset codec)
             throws IOException {
-        Charset encoding = Optional.of(codec)
+        Charset encoding = Optional.ofNullable(codec)
                 .orElse(StandardCharsets.US_ASCII);
 
         byte[] toSend = str.getBytes(encoding);
