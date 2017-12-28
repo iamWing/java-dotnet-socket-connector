@@ -1,12 +1,14 @@
 /*
- * Copyright (c) $year Wing Chau
+ * Copyright (c) 2017 Wing Chau
  * All rights reserved.
  *
  * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
+ * of the MIT license. See the LICENSE file for details.
  */
 
-import com.sun.istack.internal.Nullable;
+package com.devtography.socket.javadotnet;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -172,7 +174,7 @@ public class ClientSocket {
      */
     public void writeString(final String str, @Nullable final Charset codec)
             throws IOException {
-        Charset encoding = Optional.of(codec)
+        Charset encoding = Optional.ofNullable(codec)
                 .orElse(StandardCharsets.US_ASCII);
 
         byte[] toSend = str.getBytes(encoding);
