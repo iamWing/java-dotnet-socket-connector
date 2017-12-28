@@ -1,7 +1,7 @@
 group 'com.devtography'
-version '1.0-SNAPSHOT'
+version 'v0.1.0'
 
-apply plugin: 'java'
+apply plugin: 'java-library'
 
 sourceCompatibility = 1.8
 
@@ -10,5 +10,13 @@ repositories {
 }
 
 dependencies {
+    compile 'org.jetbrains:annotations:15.0'
     testCompile 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+    }
 }
