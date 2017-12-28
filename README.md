@@ -5,7 +5,7 @@ socket.
 
 PS: This has nothing to do with WebSocket / Socket.IO. At least not atm.
 
-### Getting start
+## Getting start
 
 Obviously this library only works on the Java application (Android as well if
 it must be said), and for sure a .Net application that accepts socket
@@ -18,13 +18,13 @@ StandardCharset is recommended.
 For more details, please refer to the Javadoc. I actually don't have much time
 to write the instructions yet.
 
-### Version history
+## Version history
 
 __v0.1.0 *pre-release*__
 
 - Implemented connection between Java client socket & .Net server socket
 
-### License & copyright
+## License & copyright
 
 Copyright (c) 2017 Wing Chau
 <br />
