@@ -20,6 +20,12 @@ to write the instructions yet.
 
 ## Version history
 
+__v0.1.1 *pre-release*__
+
+- Fixed issue of unhandled exception may be thrown when invoking 
+`readString(int, String)`
+- _Change_ Flush buffer after data sent
+
 __v0.1.0 *pre-release*__
 
 - Implemented connection between Java client socket & .Net server socket

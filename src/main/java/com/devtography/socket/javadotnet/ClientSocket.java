@@ -147,7 +147,8 @@ public class ClientSocket {
         while (msg.lastIndexOf(delimiter) == -1) {
             int bytesRead = in.read(buffer);
 
-            msg.append(new String(buffer, 0, bytesRead));
+            if (bytesRead > -1)
+                msg.append(new String(buffer, 0, bytesRead));
         }
 
         // passes message string to listener without
@@ -179,6 +180,7 @@ public class ClientSocket {
 
         byte[] toSend = str.getBytes(encoding);
         out.write(toSend);
+        out.flush();
     }
 
     /* Listener setters */
