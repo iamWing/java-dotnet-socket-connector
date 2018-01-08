@@ -180,6 +180,7 @@ public class ClientSocket {
 
         byte[] toSend = str.getBytes(encoding);
         out.write(toSend);
+        out.flush();
     }
 
     /* Listener setters */
