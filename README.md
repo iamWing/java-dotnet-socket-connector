@@ -15,8 +15,7 @@ The codec used to encode and decode the message must be the same in both Java &
 .Net application. Default codec used in the library is ASCII. Codec from
 StandardCharset is recommended.
 
-For more details, please refer to the Javadoc. I actually don't have much time
-to write the instructions yet.
+For more details, please refer to the comments within the code. 
 
 ## Version history
 
